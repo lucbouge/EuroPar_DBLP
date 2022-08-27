@@ -1,0 +1,29 @@
+name: DBLP
+
+channels:
+  - defaults
+  - conda-forge
+
+dependencies:
+  - black >= 22.6.0
+  - pyright >= 1.1.267
+  - python >= 3.10.5
+
+  - unidecode
+  - pandas
+  - requests
+  - attrs
+  - bs4
+  - xmltodict
+  - lxml
+  - diskcache
+  - python-levenshtein 
+  - PyPDF2
+  - pyzotero
+  - pdftotext
+
+  - pip
+
+  
+
+

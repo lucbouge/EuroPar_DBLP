@@ -1,0 +1,4 @@
+{
+    "python.formatting.blackPath": "/usr/local/opt/miniconda3/envs/DBLP/bin/black",
+    "python.formatting.provider": "black"
+}
