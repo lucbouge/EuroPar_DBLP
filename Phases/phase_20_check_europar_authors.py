@@ -15,15 +15,21 @@ def main():
         (author, select_entries(entries=entries, author=author))
         for (author, entries) in author_to_entries_dict.items()
     )
+    dump_data_to_file(
+        author_to_selected_entries_dict, dataname="author_to_selected_entries_dict"
+    )
+    #
     for (author, entries) in sorted(
         author_to_selected_entries_dict.items(), key=sorting_function, reverse=True
     ):
+        nb_entries = len(entries)
+        nb_europar_entries = len(tuple(entry for entry in entries if entry.is_europar))
         print(
             author,
-            len(entries),
-            len(tuple(entry for entry in entries if entry.is_europar)),
+            nb_entries,
+            nb_europar_entries,
         )
-    dump_data_to_file(author_to_selected_entries_dict, dataname = "author_to_selected_entries_dict")
+
 
 ################################################################################
 
@@ -62,7 +68,7 @@ def select_entries(*, entries=None, author=None) -> List[Entry]:
         ##
         year_tag = root_tag.find("year")
         if year_tag is None:
-            print_error(f"Empty year for {root_tag}")
+            # print_error(f"Empty year for {root_tag}")
             continue
         year = int(year_tag.get_text())
         assert 1900 <= year <= 2030, year
@@ -75,7 +81,7 @@ def select_entries(*, entries=None, author=None) -> List[Entry]:
             is_europar=is_europar,
             kind=kind,
             author=author,
-            entry=entry
+            entry=entry,
         )
         filtered_entries.append(new_entry)
     return filtered_entries

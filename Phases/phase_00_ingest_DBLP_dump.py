@@ -7,12 +7,13 @@ import xmltodict
 
 
 def main():
-    dblp_entries= make_dblp_entries()
-    # dump_data_to_file(dblp_entries, dataname="dblp_entries")
+    dblp_entries = make_dblp_entries()
+    dump_data_to_file(dblp_entries, dataname="dblp_entries")
     print(f"{len(dblp_entries)=}")
 
 
 ################################################################################
+
 
 class MyHTMLParser(HTMLParser):
     def __init__(self, *, callback=None):
@@ -52,7 +53,7 @@ class MyHTMLParser(HTMLParser):
         quit()
 
     def handle_charref(self, name):
-        if name.startswith('x'):
+        if name.startswith("x"):
             c = chr(int(name[1:], 16))
         else:
             c = chr(int(name))
@@ -62,31 +63,23 @@ class MyHTMLParser(HTMLParser):
     def handle_decl(self, data):
         print("Decl     :", data)
 
+
 ################################################################################
 
 count = 0
-dblp_entries = list() 
-    
+dblp_entries = list()
+
+
 def callback(entry):
-    if False: # re.search(r"[^\n-~]", entry):
-        print("_"*30)
-        print(entry)
-    # entry = xmltodict.parse(entry)
     dblp_entries.append(entry)
 
+
 def make_dblp_entries():
-    # with open("a.xml", "rb") as cin: 
+    # with open("a.xml", "rb") as cin:
     with gzip.open(DBLP_DUMP_ORIGINAL_FILENAME) as cin:
         parser = MyHTMLParser(callback=callback)
         for (i, line) in enumerate(cin):
-            if i%100_000 == 0:
+            if i % 1_000_000 == 0:
                 print(f"{i:15,d}")
             parser.feed(line.decode())
     return dblp_entries
-        
-  
-
-
-
-
-
