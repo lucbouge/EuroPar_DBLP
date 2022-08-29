@@ -1,85 +1,60 @@
 from Libraries.Config.packages import *
 
 import gzip
-from html.parser import HTMLParser
-from html.entities import name2codepoint
+from lxml import etree, objectify
 import xmltodict
+
+# https://lxml.de/parsing.html
+
+source = "Sources/test.xml"
+
+entries = list()
 
 
 def main():
-    dblp_entries = make_dblp_entries()
+    root = get_root(source)
+    ##
+    print("="*100)
+    dblp_entries = dict()
+    for (i, entry) in enumerate(root.iterchildren()):
+        assert entry.tag in DBLP_CATEGORIES, entry.tag
+        assert "key" in entry.keys()
+        key = entry.get("key")
+        assert key not in dblp_entries, key
+        if i % 1_000_000 == 0:
+            print(f"{i:15,d}", key)
+        dblp_entries[key] = xmltodict.parse(etree.tostring(entry))
     dump_data_to_file(dblp_entries, dataname="dblp_entries")
-    print(f"{len(dblp_entries)=}")
 
 
-################################################################################
-
-
-class MyHTMLParser(HTMLParser):
-    def __init__(self, *, callback=None):
-        super().__init__(convert_charrefs=False)
-        self.depth = 0
-        self.xml = ""
-        assert callback is not None
-        self.callback = callback
-
-    def handle_starttag(self, tag, attrs):
-        text = self.get_starttag_text()
-        assert text is not None
-        if self.depth > 0:
-            self.xml += text
-        self.depth += 1
-
-    def handle_endtag(self, tag):
-        self.depth -= 1
-        self.xml += f"</{tag}>"
-        assert self.depth >= 0
-        if self.depth == 1:
-            self.callback(self.xml)
-            self.xml = ""
-
-    def handle_data(self, data):
-        if self.depth > 0:
-            self.xml += data
-
-    def handle_comment(self, data):
-        print("Comment  :", data)
-
-    def handle_entityref(self, name):
-        c = chr(name2codepoint[name])
-        print("Named ent:", c)
-        self.xml += c
-        print(self.xml)
-        quit()
-
-    def handle_charref(self, name):
-        if name.startswith("x"):
-            c = chr(int(name[1:], 16))
-        else:
-            c = chr(int(name))
-        print("Num ent  :", c)
-        self.xml += c
-
-    def handle_decl(self, data):
-        print("Decl     :", data)
-
-
-################################################################################
-
-count = 0
-dblp_entries = list()
-
-
-def callback(entry):
-    dblp_entries.append(entry)
-
-
-def make_dblp_entries():
-    # with open("a.xml", "rb") as cin:
+def get_root(source):
+    parser = etree.XMLPullParser(
+        # events=("end"),
+        attribute_defaults=True,
+        dtd_validation=True,
+    )
+    # with open(source, "rb") as cin:
     with gzip.open(DBLP_DUMP_ORIGINAL_FILENAME) as cin:
-        parser = MyHTMLParser(callback=callback)
+        ##
+        prelude(cin, parser)
+        ##
         for (i, line) in enumerate(cin):
             if i % 1_000_000 == 0:
                 print(f"{i:15,d}")
-            parser.feed(line.decode())
-    return dblp_entries
+            parser.feed(line)
+        ##
+    root = parser.close()
+    print(root, type(root))
+    return root
+
+
+def prelude(cin, parser):
+    line = next(cin)
+    assert line == b'<?xml version="1.0" encoding="ISO-8859-1"?>\n', line
+    line = b'<?xml version="1.0"?>\n'
+    parser.feed(line)
+    ##
+    line = next(cin)
+    assert line == b'<!DOCTYPE dblp SYSTEM "dblp.dtd">\n', line
+    line = b'<!DOCTYPE dblp SYSTEM "Sources/dblp.dtd">\n'
+    parser.feed(line)
