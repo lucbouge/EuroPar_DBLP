@@ -9,7 +9,7 @@ _Archives/
 XLSX/
 Export/
 __init__.py
-Sources/dblp-*.xml*
+Sources/*.gz
 Sources/*.xml
 
 
