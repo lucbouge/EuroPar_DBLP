@@ -1,4 +1,8 @@
 {
     "python.formatting.blackPath": "/usr/local/opt/miniconda3/envs/DBLP/bin/black",
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "python.languageServer": "Pylance",
+    "python.analysis.extraPaths": [
+        "/usr/local/opt/miniconda3/envs/DBLP/lib/python3.10/site-packages/"
+    ]
 }

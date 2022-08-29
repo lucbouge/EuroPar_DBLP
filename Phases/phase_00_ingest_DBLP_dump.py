@@ -17,7 +17,7 @@ def main():
 
 class MyHTMLParser(HTMLParser):
     def __init__(self, *, callback=None):
-        super().__init__()
+        super().__init__(convert_charrefs=False)
         self.depth = 0
         self.xml = ""
         assert callback is not None

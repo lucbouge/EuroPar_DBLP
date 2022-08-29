@@ -5,7 +5,7 @@
 exclude = [
     "**/__pycache__/**",
     "**/_Archives/**",
-    "*.py",
+    # "*.py",
     "Test/**",
     "Sources/**",
     "XLSX/**",
@@ -13,8 +13,8 @@ exclude = [
 ]
 
 extraPaths = [
-    "/usr/local/anaconda3/envs/DBLP/lib/python3.10/",
-    "/usr/local/anaconda3/envs/DBLP/lib/python3.10/site-packages"  
+    "/usr/local/opt/miniconda3/envs/DBLP/lib/python3.10/",
+    "/usr/local/opt/miniconda3/envs/DBLP/lib/python3.10/site-packages"  
 ]
 
 pythonVersion = "3.10"

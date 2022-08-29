@@ -4,12 +4,13 @@ test*.py
 Test/
 *.pkl
 *.zip
+
 _Archives/
 XLSX/
 Export/
 __init__.py
 Sources/dblp-*.xml*
-
+Sources/*.xml
 
 
 
