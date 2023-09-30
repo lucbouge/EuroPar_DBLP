@@ -10,6 +10,7 @@ XLSX/
 Export/
 __init__.py
 Sources/
+pdm.lock
 
 
 
