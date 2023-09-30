@@ -4,6 +4,10 @@ test*.py
 Test/
 *.pkl
 *.zip
+.DS_Store
+.pdm_python
+dblp.dtd
+dblp.py
 
 _Archives/
 XLSX/
@@ -11,6 +15,8 @@ Export/
 __init__.py
 Sources/
 pdm.lock
+
+
 
 
 
