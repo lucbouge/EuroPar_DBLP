@@ -1,10 +1,8 @@
 [project]
-name = ""
-version = ""
+name = "DBLP"
+version = "1.0"
 description = ""
-authors = [
-    {name = "Luc Bougé", email = "Luc.Bouge@ens-rennes.fr"},
-]
+authors = [{ name = "Luc Bougé", email = "Luc.Bouge@ens-rennes.fr" }]
 dependencies = [
     "xmltodict>=0.13.0",
     "more-itertools>=10.1.0",
@@ -17,5 +15,4 @@ dependencies = [
 ]
 requires-python = ">=3.11"
 readme = "README.md"
-license = {text = "MIT"}
-
+license = { text = "MIT" }
