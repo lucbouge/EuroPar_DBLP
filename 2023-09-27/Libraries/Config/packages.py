@@ -38,9 +38,10 @@ from attrs import asdict, define, field, fields, frozen, validators
 from typeguard import typechecked, TypeCheckError, check_type
 
 
-from Libraries.Utilities.file import (
+from Libraries.Utilities.file_library import (
     dump_data_to_file,
     load_file_to_data,
     test_file_exists,
 )
+
 from Libraries.Utilities.utilities import *
