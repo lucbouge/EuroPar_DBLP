@@ -10,8 +10,8 @@ dependencies = [
     "attrs>=23.1.0",
     "lxml>=4.9.3",
     "typeguard>=4.1.5",
-    "Python-Libraries @ file:///Users/bouge/Repositories/no_save/GIT/Github_Luc/Python_Libraries",
     "unidecode>=1.3.7",
+    "Python-Libraries @ file:///Users/bouge/GIT/Github_Luc/Python_Libraries",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
