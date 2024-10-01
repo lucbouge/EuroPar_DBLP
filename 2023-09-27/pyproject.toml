@@ -1,18 +1,24 @@
 [project]
-name = "DBLP"
-version = "1.0"
-description = ""
-authors = [{ name = "Luc Bougé", email = "Luc.Bouge@ens-rennes.fr" }]
+name = "2023-09-27"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Luc Bougé", email = "Luc.Bouge@ens-rennes.fr"},
+]
 dependencies = [
-    "xmltodict>=0.13.0",
     "more-itertools>=10.1.0",
-    "pandas>=2.1.1",
     "attrs>=23.1.0",
+    "xmltodict>=0.13.0",
     "lxml>=4.9.3",
     "typeguard>=4.1.5",
-    "unidecode>=1.3.7",
+    "Unidecode>=1.3.7",
+    "pandas>=2.1.1",
     "Python-Libraries @ file:///Users/bouge/GIT/Github_Luc/Python_Libraries",
 ]
-requires-python = ">=3.11"
+requires-python = "==3.12.*"
 readme = "README.md"
-license = { text = "MIT" }
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
